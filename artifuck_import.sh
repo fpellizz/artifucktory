@@ -8,14 +8,16 @@ url=NEW_URL
 repository=NEW_REPOS
 
 #old repository configuration
-#user=admin
-#password=Latina,1
+#user=OLD_USER
+#password=OLD_PASSWORD
 old_url=OLD_URL
 old_repository=OLD_REPOS
 ################################################################
 
 function usage() {
-    
+    #
+    #show usage infos
+    #
     echo "" 
     echo "  ArtiFucktory Import Tool"
     echo "  "
@@ -41,7 +43,9 @@ function usage() {
 }
 
 function configure() {
-    
+    #
+    #configure the script parameter
+    #
     echo ""
     echo " Enter the old server address (eg: http://localhost:8081/artifactory)"
     read old_url
@@ -68,6 +72,7 @@ function configure() {
 
 }
 
+#main 
 case $1 in
 	"") usage ;;
 	"-h") usage ;;
