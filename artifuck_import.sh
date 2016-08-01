@@ -1,6 +1,7 @@
 #!/bin/bash
 ################################################################
 #Configuration section
+system=not_configurated
 #new repository configuration 
 user=USER
 password=PASSWORD
@@ -68,6 +69,7 @@ function configure() {
     sed -i -e 's/NEW_REPOS/'$new_repository'/g' $0
     sed -i -e 's/USER/'$new_repo_user'/g' $0
     sed -i -e 's/PASSWORD/'$new_repo_password'/g' $0
+    sed -i -e '0,/not_configurated/ s/not_configurated/configurated/' $0
     echo "Configuration DONE"
 
 }
@@ -82,7 +84,7 @@ case $1 in
                        echo "";;
         "--configure") configure ;;
         *)  clear
-            if [[ $url = "NEW_URL" ]]
+            if [[ $system = "not_configurated" ]]
                 then
                     echo "The script is not configure, but don't worry we are going to configure right now."
                     configure
