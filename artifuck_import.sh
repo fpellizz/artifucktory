@@ -15,6 +15,21 @@ old_url=OLD_URL
 old_repository=OLD_REPOS
 ################################################################
 
+################################################################
+#TO DO:
+#
+# 1) log:               Create some kind of human readable log
+#
+# 2) migration check:   Verify (read dimension of artifactory 
+#                       json response) the correct migration of 
+#                       the artifact
+#
+# 3) massive import:    Get input file with list of artifact to 
+#                       migrate
+#
+################################################################
+
+
 function usage() {
     #
     #show usage infos
