@@ -1,29 +1,24 @@
 #!/bin/bash
 ################################################################
 #Configuration section
+system=not_configurated
 #new repository configuration 
-user=admin
-password=Latina,1
-url=https://decisyon.jfrog.io/decisyon/list
-repository=custom-decisyon-libs
+user=USER
+password=PASSWORD
+url=NEW_URL
+repository=NEW_REPOS
 
 #old repository configuration
-#user=admin
-#password=Latina,1
-old_url=http://dev-srv-02:8081/artifactory
-old_repository=custom-decisyon-libs
-################################################################
-#TEST 
-    old_url=http://localhost:8081/artifactory
-    old_repository=http://localhost:8081/artifactory0
-    new_url=http://localhost:8081/artifactory0
-    new_repository=http://localhost:8081/artifactory99999
-    new_repo_user=qwerty
-    new_repo_password=qwerty
+#user=OLD_USER
+#password=OLD_PASSWORD
+old_url=OLD_URL
+old_repository=OLD_REPOS
 ################################################################
 
 function usage() {
-    
+    #
+    #show usage infos
+    #
     echo "" 
     echo "  ArtiFucktory Import Tool"
     echo "  "
@@ -49,7 +44,9 @@ function usage() {
 }
 
 function configure() {
-    
+    #
+    #configure the script parameter
+    #
     echo ""
     echo " Enter the old server address (eg: http://localhost:8081/artifactory)"
     read old_url
@@ -66,25 +63,32 @@ function configure() {
     echo " Enter the new Repository password"
     read new_repo_password
     echo ""
-    sed -i -e 's,http://localhost:8081/artifactory,'$old_url',g' $0
-    sed -i -e 's/http://localhost:8081/artifactory0/'$old_repository'/g' $0
-    sed -i -e 's,http://localhost:8081/artifactory0,'$new_url',g' $0
-    sed -i -e 's/http://localhost:8081/artifactory99999/'$new_repository'/g' $0
-    sed -i -e 's/qwerty/'$new_repo_user'/g' $0
-    sed -i -e 's/qwerty/'$new_repo_password'/g' $0
+    sed -i -e 's,OLD_URL,'$old_url',g' $0
+    sed -i -e 's/OLD_REPOS/'$old_repository'/g' $0
+    sed -i -e 's,NEW_URL,'$new_url',g' $0
+    sed -i -e 's/NEW_REPOS/'$new_repository'/g' $0
+    sed -i -e 's/USER/'$new_repo_user'/g' $0
+    sed -i -e 's/PASSWORD/'$new_repo_password'/g' $0
+    sed -i -e '0,/not_configurated/ s/not_configurated/configurated/' $0
     echo "Configuration DONE"
 
 }
 
+#main 
 case $1 in
 	"") usage ;;
 	"-h") usage ;;
 	"--help") usage ;;
 	"?") usage ;;
-	"--version")   echo "ArtiFucktory Import Tool Version 0.1"
+	"--version")   echo "ArtiFucktory Import Tool Version 0.2"
                        echo "";;
         "--configure") configure ;;
         *)  clear
+            if [[ $system = "not_configurated" ]]
+                then
+                    echo "The script is not configure, but don't worry we are going to configure right now."
+                    configure
+            fi
             artifact_repo_path=$1
             echo ""
             echo "Repository Path: $1"
